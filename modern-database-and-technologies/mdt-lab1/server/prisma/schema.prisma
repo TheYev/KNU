@@ -1,0 +1,229 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  Id        Int    @id @default(autoincrement())
+  Email     String
+  Password  String
+  FirstName String
+  LastName  String
+
+  Country   Country @relation(fields: [CountryId], references: [Id])
+  CountryId Int
+
+  AboutUser AboutUser?
+
+  UserRole UserRole[]
+
+  SubjectMiddlevare SubjectMiddlevare[]
+
+  GroupMiddlevare GroupMiddlevare[]
+}
+
+model AboutUser {
+  Id         Int      @id @default(autoincrement())
+  FatherName String
+  MotherName String
+  age        Int
+  UpdateAt   DateTime @default(now())
+  Phone      Int
+  Telegram   String
+
+  User   User @relation(fields: [UserId], references: [Id], onDelete: Cascade)
+  UserId Int  @unique
+}
+
+model UserRole {
+  Id   Int      @id @default(autoincrement())
+  Role RoleUser
+
+  User   User @relation(fields: [UserId], references: [Id], onDelete: Cascade)
+  UserId Int  @unique
+}
+
+model SubjectMiddlevare {
+  Id Int @id @default(autoincrement())
+
+  UserJoinToSubject DateTime @default(now())
+  UserExitSubject   DateTime
+
+  User   User @relation(fields: [UserId], references: [Id], onDelete: Cascade)
+  UserId Int
+
+  Subject   Subject @relation(fields: [SubjectId], references: [Id], onDelete: Cascade)
+  SubjectId Int
+}
+
+model Subject {
+  Id    Int    @id @default(autoincrement())
+  Name  String
+  score Int
+
+  HeadTeacher       HeadTecher[]
+  SubjectMiddlevare SubjectMiddlevare[]
+}
+
+model GroupMiddlevare {
+  Id              Int      @id @default(autoincrement())
+  Status          Boolean
+  UserJoinToGroup DateTime @default(now())
+  UserExitGroup   DateTime
+
+  User   User @relation(fields: [UserId], references: [Id])
+  UserId Int
+
+  GroopCollection   GroopCollection? @relation(fields: [GroopCollectionId], references: [Id])
+  GroopCollectionId Int?
+}
+
+model GroopCollection {
+  Id            Int      @id @default(autoincrement())
+  Name          String
+  GroupCreateAt DateTime @default(now())
+
+  GroupMiddlevare GroupMiddlevare[]
+
+  HeadTecher   HeadTecher @relation(fields: [HeadTecherId], references: [Id])
+  HeadTecherId Int        @unique
+
+  Faculty   Faculty @relation(fields: [FacultyId], references: [Id])
+  FacultyId Int
+}
+
+model Faculty {
+  Id   Int    @id @default(autoincrement())
+  Name String
+
+  University   University @relation(fields: [UniversityId], references: [Id])
+  UniversityId Int
+
+  HeadTecher HeadTecher @relation(fields: [DecanId], references: [Id], onDelete: Cascade)
+  DecanId    Int        @unique
+
+  GroopCollection GroopCollection[]
+
+  TeacherContract   TeacherContract? @relation(fields: [teacherContractId], references: [Id])
+  teacherContractId Int?
+}
+
+model University {
+  Id             Int    @id @default(autoincrement())
+  NameUniv       String
+  NumberFacultes Int
+
+  Faculty Faculty[]
+
+  Country   Country @relation(fields: [CountryId], references: [Id])
+  CountryId Int
+}
+
+model Country {
+  Id            Int    @id @default(autoincrement())
+  Name          String
+  PresidentName String
+
+  University  University[]
+  User        User[]
+  HeadTeacher HeadTecher[]
+}
+
+model HeadTecher {
+  Id        Int    @id @default(autoincrement())
+  FirstName String
+  LastName  String
+
+  Subject   Subject @relation(fields: [SubjectId], references: [Id])
+  SubjectId Int
+
+  Country   Country @relation(fields: [CountryId], references: [Id])
+  CountryId Int
+
+  GroopCollection GroopCollection?
+
+  Faculty Faculty?
+
+  HeadTecherAbout HeadTecherAbout?
+
+  HeadTecherRole HeadTecherRole?
+
+  ContractCollection TeacherContractCollection[]
+}
+
+model TeacherContractCollection {
+  Id                   Int      @id @default(autoincrement())
+  status               Boolean
+  TeacherJoinToContact DateTime
+  TeacherExittContact  DateTime
+
+  Teacher   HeadTecher @relation(fields: [TeacherId], references: [Id])
+  TeacherId Int
+
+  TeacherContract TeacherContract[]
+}
+
+model HeadTecherAbout {
+  Id                Int      @id @default(autoincrement())
+  Age               Int
+  YearEndUniversity Int
+  YearStartWork     Int
+  Phone             Int
+  Email             String
+  Telegram          String
+  UpdateAte         DateTime @default(now())
+
+  HeadTecher   HeadTecher @relation(fields: [HeadTecherId], references: [Id], onDelete: Cascade)
+  HeadTecherId Int        @unique
+}
+
+model HeadTecherRole {
+  Id     Int         @id @default(autoincrement())
+  Status TeacherRole
+
+  HeadTecher   HeadTecher @relation(fields: [HeadTecherId], references: [Id], onDelete: Cascade)
+  HeadTecherId Int        @unique
+}
+
+model TeacherContract {
+  Id               Int     @id @default(autoincrement())
+  Salary           Int
+  Hospital         Boolean
+  ContractYearTerm Int
+
+  Faculty Faculty[]
+
+  TeacherContractCollection   TeacherContractCollection? @relation(fields: [teacherContractCollectionId], references: [Id])
+  teacherContractCollectionId Int?
+}
+
+model StudiBook {
+  Id             Int    @id @default(autoincrement())
+  AuthorFullName String
+  BookName       String
+}
+
+model SpecializationPrice {
+  Id          Int    @id @default(autoincrement())
+  Name        String
+  Description String
+  Price       Int
+}
+
+enum RoleUser {
+  Student
+  Starosta
+}
+
+enum TeacherRole {
+  Docent
+  Professor
+  Assistant
+}

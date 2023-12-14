@@ -1,0 +1,25 @@
+for create main file:
+g++ -o my_main main.cpp
+
+for start prog:
+./my_main
+
+
+runnin program with time gives us:
+time ./main
+
+
+FOR STAT(PERF)
+sudo perf record ./my_main
+
+sudo perf stat -d gzip ./my_main - we get file perf.data
+
+sudo perf report -f
+
+
+FLAMEGRAPH
+sudo perf record -g -F 99 -a -g -- sleep 60
+../main || ../optim_main
+sudo perf script | ./stackcollapse-perf.pl > out.perf-folded
+./flamegraph.pl out.perf-folded > perf.svg
+firefox perf.svg

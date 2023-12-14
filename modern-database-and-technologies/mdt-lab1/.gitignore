@@ -1,0 +1,6 @@
+server/node_modules
+server/prisma/migrations
+server/dist
+server/yarn.lock
+
+.env

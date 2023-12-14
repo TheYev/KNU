@@ -1,0 +1,33 @@
+The calculation has started.
+From the set a action performed 1.
+From the set b action performed 1.
+From the set c action performed 1.
+From the set d action performed 1.
+From the set f action performed 1.
+From the set l action performed 1.
+From the set g action performed 1.
+From the set b action performed 1.
+From the set c action performed 1.
+From the set d action performed 1.
+From the set h action performed 1.
+From the set j action performed 1.
+From the set iError: Key  action performed j1.
+ missing in the graph.
+From the set l action performed 1.
+From the set i action performed 1.
+From the set j action performed 1.
+Error: Key j missing in the graph.
+From the set f action performed 1.
+Error: Key i missing in the graph.
+Error: Key i missing in the graph.
+From the set g action performed 1.
+From the set h action performed 1.
+From the set i action performed 1.
+Error: Key i missing in the graph.
+From the set i action performed 1.
+From the set j action performed 1.
+From the set j action performed 1.
+Error: Key i missing in the graph.
+Error: Key j missing in the graph.
+Error: Key j missing in the graph.
+The calculation is complete..

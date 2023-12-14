@@ -1,0 +1,3 @@
+flex calculator.l
+bison -dy calculator.y
+gcc y.tab.c lex.yy.c -o calculator
