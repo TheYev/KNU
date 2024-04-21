@@ -1,7 +1,6 @@
 # Клас вузла червоно-чорного дерева
 import sys
 
-
 class Node:
     def __init__(self, value, color="RED"):
         self.value = value
@@ -16,7 +15,7 @@ class RedBlackTree:
     def __init__(self):
         self.root = None
 
-    # Інтерфейс для вставки нового вузла в червоно-чорне дерево
+
     def insert(self, value):
         node = Node(value)
         if self.root is None:
@@ -26,7 +25,6 @@ class RedBlackTree:
             self._insert_helper(node, self.root)
             self._fix_insert(node)
 
-    # Метод для вставки нового вузла в червоно-чорне дерево
     def _insert_helper(self, node, root):
         if node.value < root.value:
             if root.left is None:
@@ -106,26 +104,11 @@ class RedBlackTree:
         left_child.right = node
         node.parent = left_child
 
-    # Інтерфейс для видалення вузла з червоно-чорного дерева
     def remove(self, value):
         node = self._search(value)
         if node is not None:
             self._remove_node(node)
-
-    # Інтерфейс для пошуку вузла в червоно-чорному дереві
-    def _search(self, value):
-        return self._search_helper(value, self.root)
-
-    # Метод для пошуку вузла в червоно-чорному дереві
-    def _search_helper(self, value, node):
-        if node is None or node.value == value:
-            return node
-        if value < node.value:
-            return self._search_helper(value, node.left)
-        else:
-            return self._search_helper(value, node.right)
-
-    # Метод для видалення вузла з червоно-чорного дерева
+            
     def _remove_node(self, node):
         if node.left is not None and node.right is not None:
             successor = self._find_min(node.right)
@@ -148,6 +131,20 @@ class RedBlackTree:
             child = node.right
             self._replace_node(node, child)
         del node
+
+    # Інтерфейс для пошуку вузла в червоно-чорному дереві
+    def _search(self, value):
+        return self._search_helper(value, self.root)
+
+    # Метод для пошуку вузла в червоно-чорному дереві
+    def _search_helper(self, value, node):
+        if node is None or node.value == value:
+            return node
+        if value < node.value:
+            return self._search_helper(value, node.left)
+        else:
+            return self._search_helper(value, node.right)
+
 
     # Метод для заміни вузла
     def _replace_node(self, node, child):
