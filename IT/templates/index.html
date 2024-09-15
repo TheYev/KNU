@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimpleDB Tables</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tables</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Table Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for table in tables %}
+            <tr>
+                <td><a href="{{ url_for('table_view', table_name=table) }}">{{ table }}</a></td>
+                <td>
+                    <form action="{{ url_for('delete_table', table_name=table) }}" method="post" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Create New Table</h2>
+    <form action="{{ url_for('create_table') }}" method="post">
+        <label for="table_name">Table Name:</label>
+        <input type="text" name="table_name" required>
+        <button type="submit">Create Table</button>
+    </form>
+</body>
+</html>

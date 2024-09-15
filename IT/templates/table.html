@@ -1,0 +1,90 @@
+<!-- templates/table.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table: {{ table_name }}</title>
+    <style>
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Table: {{ table_name }}</h1>
+    
+    <h2>Existing Data</h2>
+    <table>
+        <thead>
+            <tr>
+                {% if table_data and table_data[0] %}
+                    {% for key in table_data[0].keys() %}
+                        <th>{{ key }}</th>
+                    {% endfor %}
+                    <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in table_data %}
+            <tr>
+                {% for value in row.values() %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+                <td>
+                    <form action="{{ url_for('delete_row', table_name=table_name, row_id=row['id']) }}" method="post" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Add New Field</h2>
+    <form action="{{ url_for('add_field', table_name=table_name) }}" method="post">
+        <label for="field_name">Field Name:</label>
+        <input type="text" name="field_name" required>
+        <label for="field_type">Field Type:</label>
+        <select name="field_type" required>
+            <option value="integer">Integer</option>
+            <option value="real">Real</option>
+            <option value="char">Char</option>
+            <option value="string">String</option>
+        </select>
+        <button type="submit">Add Field</button>
+    </form>
+
+    <h2>Add New Data</h2>
+    <form action="{{ url_for('add_data', table_name=table_name) }}" method="post">
+        {% if table_data and table_data[0] %}
+            {% for key in table_data[0].keys() %}
+                <label for="{{ key }}">{{ key }}:</label>
+                <input type="text" name="{{ key }}" required><br>
+            {% endfor %}
+        {% endif %}
+        <button type="submit">Add Data</button>
+    </form>
+
+    <h2>Rename Table</h2>
+    <form action="{{ url_for('rename_table') }}" method="post">
+        <input type="hidden" name="old_name" value="{{ table_name }}">
+        <label for="new_name">New Table Name:</label>
+        <input type="text" name="new_name" required>
+        <button type="submit">Rename Table</button>
+    </form>
+
+    <a href="{{ url_for('index') }}">Back to Tables</a>
+</body>
+</html>
