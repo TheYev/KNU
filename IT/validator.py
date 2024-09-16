@@ -1,6 +1,9 @@
 class TypeValidator:
     @staticmethod
     def validate(value, field_type):
+        if field_type is None:
+            raise ValueError("Field type cannot be None.")
+        
         if field_type == 'integer':
             return TypeValidator.validate_integer(value)
         elif field_type == 'real':

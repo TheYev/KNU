@@ -6,8 +6,33 @@ db = DB()
 
 @app.route('/')
 def index():
+    # Перевірка, чи є активна БД
+    if db.active_db is None:
+        return render_template('select_db.html')  # Сторінка вибору БД
+    
     tables = db.list_tables()
     return render_template('index.html', tables=tables)
+
+@app.route('/databases', methods=['POST'])
+def create_database():
+    db_name = request.form.get('db_name')
+    if not db_name:
+        return jsonify({"error": "Database name is required."}), 400
+
+    try:
+        db.create_database(db_name)
+        return redirect(url_for('index'))
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
+
+@app.route('/databases/use', methods=['POST'])
+def use_database():
+    db_name = request.form.get('db_name')
+    try:
+        db.use_database(db_name)
+        return redirect(url_for('index'))
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
 
 @app.route('/tables', methods=['POST'])
 def create_table():
@@ -58,10 +83,27 @@ def add_data(table_name):
     except ValueError as e:
         return jsonify({"error": str(e)}), 400
     
-# @app.route('/tables/<table_name>/delete_row/<row_id>', methods=['POST'])
-# def delete_row(table_name, row_id):
-#     db.delete_row(table_name, row_id)
-#     return redirect(url_for('view_table', table_name=table_name))
+@app.route('/select_database', methods=['POST'])
+def select_database():
+    db_name = request.form.get('db_name')
+    if not db_name:
+        return jsonify({"error": "Database name is required."}), 400
+
+    try:
+        db.select_database(db_name)
+        return redirect(url_for('index'))
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
+
+@app.route('/tables/<table_name>/delete_row/<row_id>', methods=['POST'])
+def delete_row(table_name, row_id):
+    try:
+        db.delete_row(table_name, row_id)
+        return redirect(url_for('table_view', table_name=table_name))
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
+    except FileNotFoundError as e:
+        return jsonify({"error": str(e)}), 404
 
 @app.route('/table/rename', methods=['POST'])
 def rename_table():
