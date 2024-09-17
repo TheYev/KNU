@@ -7,7 +7,7 @@ class DB:
     def __init__(self):
         self.base_dir = os.getcwd()
         self.ensure_directory(self.base_dir)
-        self.active_db = None  # Додати це поле для зберігання вибраної бази даних
+        self.active_db = None
         
     def ensure_directory(self, path):
         if not os.path.exists(path):
@@ -36,7 +36,7 @@ class DB:
         self.active_db = db_path
 
     def create_table(self, table_name):
-        self._check_db_selected()  # Перевірка вибору бази даних
+        self._check_db_selected() 
         table_path = os.path.join(self.active_db, f"{table_name}.json")
         if os.path.exists(table_path):
             raise ValueError(f"Table '{table_name}' already exists.")
@@ -45,7 +45,7 @@ class DB:
             json.dump([], file, indent=4)
 
     def add_field(self, table_name, field_name, field_type):
-        self._check_db_selected()  # Перевірка вибору бази даних
+        self._check_db_selected() 
         valid_types = ['integer', 'real', 'char', 'string']
         if field_type not in valid_types:
             raise ValueError(f"Field type '{field_type}' is not valid.")
@@ -64,7 +64,7 @@ class DB:
             json.dump(rows, file, indent=4)
 
     def insert_row(self, table_name, row_data):
-        self._check_db_selected()  # Перевірка вибору бази даних
+        self._check_db_selected() 
         table_path = os.path.join(self.active_db, f"{table_name}.json")
         if not os.path.exists(table_path):
             raise ValueError(f"Table '{table_name}' does not exist.")
@@ -72,7 +72,6 @@ class DB:
         with open(table_path, 'r') as file:
             rows = json.load(file)
         
-        # # Перевірка типів даних
         # for field, value in row_data.items():
         #     for existing_row in rows:
         #         if field in existing_row:
@@ -80,13 +79,13 @@ class DB:
         #             if not TypeValidator.validate(value, field_type):
         #                 raise ValueError(f"Value '{value}' is not valid for field '{field}' of type '{field_type}'")
         
-        rows.append(row_data)  # Не додаємо 'id' більше
+        rows.append(row_data) 
         
         with open(table_path, 'w') as file:
             json.dump(rows, file, indent=4)
 
     def load_table(self, table_name):
-        self._check_db_selected()  # Перевірка вибору бази даних
+        self._check_db_selected()  
         table_path = os.path.join(self.active_db, f"{table_name}.json")
         if os.path.exists(table_path):
             with open(table_path, 'r') as file:

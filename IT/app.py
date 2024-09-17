@@ -6,9 +6,8 @@ db = DB()
 
 @app.route('/')
 def index():
-    # Перевірка, чи є активна БД
     if db.active_db is None:
-        return render_template('select_db.html')  # Сторінка вибору БД
+        return render_template('select_db.html') 
     
     tables = db.list_tables()
     return render_template('index.html', tables=tables)
