@@ -45,8 +45,8 @@ class DB:
             json.dump([], file, indent=4)
 
     def add_field(self, table_name, field_name, field_type):
-        self._check_db_selected() 
-        valid_types = ['integer', 'real', 'char', 'string']
+        self._check_db_selected()
+        valid_types = ['integer', 'real', 'char', 'string', 'txtFile', 'integerInvl']
         if field_type not in valid_types:
             raise ValueError(f"Field type '{field_type}' is not valid.")
         
@@ -56,30 +56,23 @@ class DB:
         
         with open(table_path, 'r') as file:
             rows = json.load(file)
-        
+
         for row in rows:
-            row[field_name] = None
+            row[field_name] = None  # Initialize the new field with None
         
         with open(table_path, 'w') as file:
             json.dump(rows, file, indent=4)
 
     def insert_row(self, table_name, row_data):
-        self._check_db_selected() 
+        self._check_db_selected()
         table_path = os.path.join(self.active_db, f"{table_name}.json")
         if not os.path.exists(table_path):
             raise ValueError(f"Table '{table_name}' does not exist.")
         
         with open(table_path, 'r') as file:
             rows = json.load(file)
-        
-        # for field, value in row_data.items():
-        #     for existing_row in rows:
-        #         if field in existing_row:
-        #             field_type = type(existing_row[field]).__name__
-        #             if not TypeValidator.validate(value, field_type):
-        #                 raise ValueError(f"Value '{value}' is not valid for field '{field}' of type '{field_type}'")
-        
-        rows.append(row_data) 
+
+        rows.append(row_data)
         
         with open(table_path, 'w') as file:
             json.dump(rows, file, indent=4)

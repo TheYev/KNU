@@ -1,3 +1,4 @@
+
 class TypeValidator:
     @staticmethod
     def validate(value, field_type):

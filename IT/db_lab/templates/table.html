@@ -78,5 +78,24 @@
     </form>
 
     <a href="{{ url_for('index') }}">Back to Tables</a>
+
+    <h2>Search Row by Field Value</h2>
+    <form action="{{ url_for('search_row', table_name=table_name) }}" method="post">
+        <label for="field_name">Field Name:</label>
+        <select name="field_name" required>
+            {% if table_data and table_data[0] %}
+                {% for key in table_data[0].keys() %}
+                    <option value="{{ key }}">{{ key }}</option>
+                {% endfor %}
+            {% endif %}
+        </select>
+        <label for="field_value">Field Value:</label>
+        <input type="text" name="field_value" required>
+        <button type="submit">Search</button>
+        {% if message %}
+            <p style="color: red;">{{ message }}</p>
+        {% endif %}
+    </form>
+
 </body>
 </html>
