@@ -33,12 +33,6 @@ class TestDB(unittest.TestCase):
         self.db.delete_table('test_table')
         tables = self.db.list_tables()
         self.assertNotIn('test_table', tables)
-        
-    # def test_add_field(self):
-    #     self.db.create_table('test_table')
-    #     self.db.add_field('test_table', 'name', 'string')
-    #     table_fields = self.db.list_table_fields('test_table')
-    #     self.assertIn('name', table_fields)
 
 if __name__ == '__main__':
     unittest.main()
