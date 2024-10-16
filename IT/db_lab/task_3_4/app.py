@@ -4,7 +4,6 @@ import os
 
 app = Flask(__name__, template_folder='templates')
 
-# Ініціалізація менеджерів
 base_dir = os.getcwd()
 db_manager = DatabaseManager(base_dir)
 table_manager = TableManager(db_manager)
@@ -83,14 +82,12 @@ def add_field(table_name):
 def add_data(table_name):
     row_data = request.form.to_dict()
 
-    # Якщо поле є файлом
     if 'txtFile' in row_data:
         file = request.files['txtFile']
         file_path = os.path.join('uploads', file.filename)
         file.save(file_path)
         row_data['txtFile'] = file_path
 
-    # Якщо поле - інтервал чисел
     if 'integerInvl' in row_data:
         try:
             row_data['integerInvl'] = eval(row_data['integerInvl'])
