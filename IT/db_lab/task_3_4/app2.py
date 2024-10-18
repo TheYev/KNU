@@ -4,7 +4,6 @@ import os
 
 app = Flask(__name__)
 
-# Ініціалізація менеджерів
 base_dir = os.getcwd()
 db_manager = DatabaseManager(base_dir)
 table_manager = TableManager(db_manager)

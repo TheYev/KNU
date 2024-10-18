@@ -14,6 +14,7 @@ class DatabaseApp:
         tk.Button(root, text="Створити таблицю", command=self.create_table).pack(pady=10)
         tk.Button(root, text="Додати дані в таблицю", command=self.add_data).pack(pady=10)
         tk.Button(root, text="Переглянути таблицю", command=self.view_table).pack(pady=10)
+        tk.Button(root, text="Пошук рядка", command=self.search_row).pack(pady=10)  # Додано нову кнопку
         tk.Button(root, text="Вихід", command=root.quit).pack(pady=10)
 
     def create_database(self):
@@ -55,6 +56,19 @@ class DatabaseApp:
                 messagebox.showinfo("Дані таблиці", str(table_data))
             else:
                 self.show_message(response)
+
+    def search_row(self):
+        table_name = simpledialog.askstring("Введіть назву таблиці", "Назва таблиці:")
+        if table_name:
+            field_name = simpledialog.askstring("Введіть назву поля", "Назва поля для пошуку:")
+            field_value = simpledialog.askstring("Введіть значення", "Значення для пошуку:")
+            if field_name and field_value:
+                response = requests.get(f"{API_URL}/tables/{table_name}/search", params={"field_name": field_name, "field_value": field_value})
+                if response.status_code == 200:
+                    result_row = response.json()
+                    messagebox.showinfo("Результат пошуку", str(result_row))
+                else:
+                    self.show_message(response)
 
     def show_message(self, response):
         if response.status_code == 200 or response.status_code == 201:
