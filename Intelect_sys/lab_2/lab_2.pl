@@ -104,5 +104,4 @@ main :-
         write('Frame is part_of luxury_motorcycle'), nl;
         write('Frame is not part_of luxury_motorcycle'), nl),  % Must be false
 
-    % End program
     halt.
