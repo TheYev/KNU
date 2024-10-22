@@ -84,7 +84,6 @@ main :-
         write('Honda Goldwing is a dirt_bike'), nl;
         write('Honda Goldwing is not a dirt_bike'), nl),  %  Must be false
 
-    % Check part_of relationships
     (contained_in(engine, motor_vehicle) ->
         write('Engine is part_of motor_vehicle'), nl;
         write('Engine is not part_of motor_vehicle'), nl),
