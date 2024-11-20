@@ -1,0 +1,11 @@
+lecturer_id,lecturer_name,subject_ids,can_teach_lecture,can_teach_practice
+1,Krak,"101,201,301",yes,yes
+2,Pashko,"102,202,302",yes,no
+3,Chernega,"401,402",yes,yes
+4,Taranuha,"101,301,401",yes,yes
+5,Tkachenko,"501,601,701",yes,yes
+6,Krivolap,"502,602,702",yes,no
+7,Koval,"801,901,1001",yes,yes
+8,Svistunov,"802,902,1002",yes,no
+9,Zolotnik,"101,201,301,401",yes,yes
+10,Anikushin,"102,202,302,402",yes,no

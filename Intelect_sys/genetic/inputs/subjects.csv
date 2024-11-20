@@ -1,0 +1,29 @@
+group_id,subject_id,subject_name,lecture_hours,practice_hours,requires_subgroups
+1,101,Mathematics,20,15,yes
+1,102,Mat Log,15,10,no
+1,201,Programming,25,20,yes
+1,202,Int sys,20,15,no
+1,301,DO,15,10,no
+1,302,Unix,20,15,yes
+1,401,AI,20,10,no
+1,402,Philosophy,15,10,no
+1,501,English,25,20,yes
+1,502,TPR,20,15,no
+2,201,Programming,25,20,yes
+2,202,Int sys,20,15,no
+3,301,DO,15,10,no
+3,302,Unix,20,15,yes
+4,401,AI,20,10,no
+4,402,Philosophy,15,10,no
+5,501,English,25,20,yes
+5,502,TPR,20,15,no
+6,601,Software development,15,10,no
+6,602,AI problems,20,15,yes
+7,701,Differential equation,20,10,no
+7,702,Math analysis,15,10,no
+8,801,Algebra and geometry,25,20,yes
+8,802,Robotics,20,15,no
+9,901,Economics,15,10,no
+9,902,Algorithm theory,20,15,yes
+10,1001,Discrete mathematics,20,10,no
+10,1002,Math statistics,15,10,no
