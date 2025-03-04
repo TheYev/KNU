@@ -1,0 +1,8 @@
+install python 3.10 version
+winget install python.python.3.11
+
+install dependecies
+py -3.10 -m pip install opencv-python mediapipe
+
+start app
+py -3.10 -m  main.py
