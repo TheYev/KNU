@@ -1,0 +1,6 @@
+docker pull tensorflow/tensorflow:latest-jupyter
+
+docker run -it -p 8888:8888 -v C:\Users\thedi\OneDrive\Desktop\KNU\GRUNN\lab3:/tf tensorflow/tensorflow:latest-jupyter
+
+
+# token = 11578dd8e9af7f8727f4916d42591fc20e3313aa8d2beb53

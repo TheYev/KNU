@@ -1,0 +1,19 @@
+install python 3.10 version
+winget install python.python.3.11
+
+install dependecies
+py -3.10 -m pip install opencv-python mediapipe jupyter 
+
+start app
+py -3.10 -m  main.py
+
+or
+
+jupyter
+py -3.10 -m notebook 
+
+
+-- if we use docker
+docker build -t my-python-jupyter .
+
+docker run -it --privileged --device=/dev/video0 -p 8888:8888 -v "C:\Users\thedi\OneDrive\Desktop\KNU\GRUNN\lab2":/app my-python-jupyter 
