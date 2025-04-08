@@ -3,3 +3,8 @@
 **/.ipynb_checkpoints
 */.vscode
 */.pytest
+**/.jpg
+**/.jpeg
+**/.png
+**/.gif
+**/.pt
