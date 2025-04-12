@@ -1,6 +1,0 @@
-path: C:/Users/thedi/OneDrive/Desktop/KNU/ROTAS/lab2/datasets 
-train: C:/Users/thedi/OneDrive/Desktop/KNU/ROTAS/lab2/datasets/train/images
-val: C:/Users/thedi/OneDrive/Desktop/KNU/ROTAS/lab2/datasets/valid/images       
-
-nc: 1                        
-names: ['gesture'] 

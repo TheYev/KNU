@@ -1,0 +1,5 @@
+install dependecies
+py -3.10 -m pip install mediapipe opencv-python autopy
+
+start app
+py -3.10 -m  traking.py
