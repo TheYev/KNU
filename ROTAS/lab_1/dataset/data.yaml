@@ -1,0 +1,8 @@
+names:
+  0: ok
+  1: forefinger
+  2: fist
+path: C:/Users/thedi/OneDrive/Desktop/KNU/ROTAS/lab_1/dataset
+train: images/train
+val: images/val
+test: images/val
